@@ -1,7 +1,6 @@
 require("joes.remap")
 require("joes.set")
 require("joes.packer")
-print("Packer")
 
 --vim.cmd([[
 --  augroup SolidityAbbreviations
