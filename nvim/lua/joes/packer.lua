@@ -11,6 +11,11 @@ return require('packer').startup(function(use)
     -- or                            , branch = '0.1.x',
     requires = { { 'nvim-lua/plenary.nvim' } }
   }
+
+  use 'hrsh7th/nvim-cmp'   -- Core completion engine
+  use 'hrsh7th/cmp-path'   -- File path completion
+  use 'hrsh7th/cmp-buffer' -- Buffer text completion (optional)
+
   use({
     'rose-pine/neovim',
     as = 'rose-pine',
