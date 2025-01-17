@@ -1,9 +1,16 @@
 vim.opt.nu = true
 vim.opt.relativenumber = true
 
+-- Default indentation settings
 vim.opt.tabstop = 2
 vim.opt.softtabstop = 2
 vim.opt.shiftwidth = 2
+
+-- Autocommand to change indentation settings for Solidity files
+vim.cmd [[
+  autocmd FileType solidity setlocal tabstop=4 softtabstop=4 shiftwidth=4
+]]
+
 vim.opt.expandtab = true
 
 vim.opt.smartindent = true
@@ -77,9 +84,17 @@ vim.api.nvim_set_keymap('n', '<Leader>ff', ':lua require"telescope.builtin".find
   { noremap = true, silent = true })
 
 
+-- folds code
+vim.o.foldmethod = 'indent'  -- or 'indent'
+vim.o.foldenable = true
+vim.o.foldlevelstart = 99  -- Open folds by default
+
 
 vim.api.nvim_set_keymap('n', '<leader>f', '<cmd>lua vim.lsp.buf.format()<CR>', { noremap = true, silent = true })
 
+-- Map leader f to format only the current file
+-- formatting for solidity
+vim.api.nvim_set_keymap('n', '<leader>fs', ':!npx prettier --write %<CR>', { noremap = true, silent = true })
 
 -- Map <leader>k to show diagnostics in a floating window
 vim.api.nvim_set_keymap(
@@ -92,3 +107,18 @@ vim.api.nvim_set_keymap(
 vim.api.nvim_set_keymap('n', '<leader>pb', "<cmd>Telescope buffers<cr>", { noremap = true, silent = true })
 
 vim.opt.wrap = true
+
+
+vim.api.nvim_set_keymap('x', '<leader>/', ':s/^/\\/\\/<CR>', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('x', '<leader>.', ":s/^\\/\\//<CR>", { noremap = true, silent = true })
+
+function LogWordUnderCursor()
+    local word = vim.fn.expand('<cword>')
+    local indent = vim.fn.indent(vim.fn.line('.'))
+    local log_statement = string.format('console.log("%s", %s);', word, word)
+
+    -- Insert the log statement at the next line with proper indentation
+    vim.api.nvim_put({string.rep(' ', indent) .. log_statement}, 'l', true, true)
+end
+
+vim.api.nvim_set_keymap('n', '<leader>,', ':lua LogWordUnderCursor()<CR>', { noremap = true, silent = true })
