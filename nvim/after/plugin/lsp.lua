@@ -3,7 +3,7 @@ require('lspconfig').intelephense.setup({})
 
 require('mason').setup({})
 require('mason-lspconfig').setup({
-  ensure_installed = { 'ts_ls', 'rust_analyzer', 'html', 'cssls', 'solidity_ls'},
+  ensure_installed = { 'ts_ls', 'rust_analyzer', 'html', 'cssls', 'solidity_ls' },
   handlers = {
     lsp.default_setup,
     lua_ls = function()
@@ -26,7 +26,13 @@ local cmp_mappings = lsp.defaults.cmp_mappings({
   ['<C-Space>'] = cmp.mapping.complete(),
 })
 cmp.setup {
-  mapping = cmp_mappings
+  mapping = cmp_mappings,
+  sources = cmp.config.sources({
+    { name = 'nvim_lsp' }, -- LSP completions
+    { name = 'luasnip' },  -- Snippet completions
+    { name = 'path' },     -- File path completions
+    { name = 'buffer' },   -- Buffer completions
+  })
 }
 lsp.set_preferences({
   sign_icons = {}
