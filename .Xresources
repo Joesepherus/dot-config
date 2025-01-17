@@ -1,0 +1,12 @@
+xterm*background: #111111
+xterm*foreground: white
+XTerm*faceName: JetBrainsMono Nerd Font:size=10
+XTerm*selectToClipboard: true
+XTerm*V100.Translations: #override \
+	Shift Ctrl(Key)V: insert-selection(CLIPBOARD) \n\
+	Shift Ctrl(key)C: insert-selection(PRIMARY) \n\
+	Shift<Btn1Down>: select-start() \n\
+	Shift<Btn1Motion>: select-extend() \n\
+	Shift<Btn1Up>: select-end(CLIPBOARD) \n\
+
+
