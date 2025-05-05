@@ -16,13 +16,28 @@ return require('packer').startup(function(use)
   use 'hrsh7th/cmp-path'   -- File path completion
   use 'hrsh7th/cmp-buffer' -- Buffer text completion (optional)
 
-  use({
-    'rose-pine/neovim',
-    as = 'rose-pine',
-    config = function()
-      vim.cmd('colorscheme rose-pine')
-    end
+--  use({
+--    'rose-pine/neovim',
+--    as = 'rose-pine',
+--    config = function()
+--      vim.cmd('colorscheme rose-pine')
+--    end
+--  })
+
+
+  use 'folke/tokyonight.nvim'
+
+  require("tokyonight").setup({
+    style = "day",  -- Use "day" for light theme
   })
+  vim.cmd.colorscheme("tokyonight")
+
+  vim.cmd [[
+    highlight Keyword gui=bold
+    highlight Function gui=bold
+    highlight Type gui=bold
+  ]]
+
 
   use 'windwp/nvim-ts-autotag'
   use {

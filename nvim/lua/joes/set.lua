@@ -121,4 +121,24 @@ function LogWordUnderCursor()
     vim.api.nvim_put({string.rep(' ', indent) .. log_statement}, 'l', true, true)
 end
 
+
 vim.api.nvim_set_keymap('n', '<leader>,', ':lua LogWordUnderCursor()<CR>', { noremap = true, silent = true })
+
+vim.api.nvim_create_autocmd({"InsertLeave", "WinEnter"}, {
+  pattern = "*",
+  callback = function()
+    vim.wo.cursorline = true
+  end
+})
+
+vim.api.nvim_create_autocmd({"InsertEnter", "WinLeave"}, {
+  pattern = "*",
+  callback = function()
+    vim.wo.cursorline = false
+  end
+})
+
+vim.opt.guicursor = {
+  "n-v-c:block-Cursor/lCursor",
+  "i:block-Cursor",
+}
